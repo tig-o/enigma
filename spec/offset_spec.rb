@@ -31,7 +31,19 @@ RSpec.describe Offset do
     expect(offset.todays_date.include?('-')).to eq(false)
   end
 
-  it 'can convert formatted date to offset' do
+  it 'can calculate a starting offset' do
     offset = Offset.new
+
+    manual_date = "032592"
+    expect(manual_date.to_i * manual_date.to_i).to eq(1062238464)
+
+    squared_num = 1062238464
+    expect(squared_num.to_s).to eq("1062238464")
+    expect(squared_num.to_s[6..-1]).to eq("8464")
+
+    offset.calculate_offset(manual_date)
+    expect(offset.calculated_offset).to be_a(Array)
+    expect(offset.calculated_offset.length).to eq(4)
+    expect(offset.calculated_offset).to eq(["8", "4", "6", "4"])
   end
 end
