@@ -12,4 +12,13 @@ RSpec.describe Offset do
     offset.manual_date = "032592"
     expect(offset.manual_date).to eq("032592")
   end
+
+  it 'can return todays date' do
+    offset = Offset.new
+
+    offset.todays_date = Date.today.to_s
+    expect(offset.todays_date).to eq(Date.today.to_s)
+    expect(offset.todays_date.length).to eq(10)
+    expect(offset.todays_date.include?('-')).to eq(true)
+  end
 end
