@@ -1,10 +1,12 @@
 class Key
   attr_accessor :manual_key,
-                :random_key
+                :random_key,
+                :current_key
 
   def initialize
     @manual_key = String.new
     @random_key = String.new
+    @current_key = String.new
   end
 
   def generate_key
