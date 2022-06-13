@@ -13,4 +13,10 @@ RSpec.describe Key do
     expect(key.manual_key).to eq("02513")
   end
 
+  it 'can return a randomly generated key' do
+    key = Key.new
+    key.generate_key
+    expect(key.random_key).to be_a(String)
+  end
+
 end
