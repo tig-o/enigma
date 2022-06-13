@@ -19,4 +19,17 @@ RSpec.describe Key do
     expect(key.random_key).to be_a(String)
   end
 
+  it 'can return the current key' do
+    key = Key.new
+
+    manual_key = "02513"
+    key.current_key = manual_key
+    expect(key.current_key).to eq("02513")
+
+    random_key = key.generate_key
+    key.current_key = random_key
+    expect(key.current_key).to be_a(String)
+    expect(key.current_key.length == 5).to eq(true)
+  end
+
 end
