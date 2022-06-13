@@ -40,8 +40,6 @@ class Offset
       assign_offsets
     elsif date.length < 6 || date.length > 6
       "Invalid entry format, try again as MMDDYY."
-    else
-      "Invalid entry format, try again as MMDDYY."
     end
   end
 end
