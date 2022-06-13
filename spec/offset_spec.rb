@@ -21,4 +21,14 @@ RSpec.describe Offset do
     expect(offset.todays_date.length).to eq(10)
     expect(offset.todays_date.include?('-')).to eq(true)
   end
+
+  it 'can return todays DDMMYY date' do
+    offset = Offset.new
+
+    offset.format_date
+    expect(offset.todays_date).to eq(Date.today.strftime('%m%d%y'))
+    expect(offset.todays_date).to be_a(String)
+    expect(offset.todays_date.length).to eq(6)
+    expect(offset.todays_date.include?('-')).to eq(false)
+  end
 end
