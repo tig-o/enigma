@@ -49,6 +49,7 @@ RSpec.describe Offset do
 
   it 'can assign A B C D offsets' do
     offset = Offset.new
+
     manual_date = "032592"
     offset.calculate_offset(manual_date)
     expect(offset.assign_offsets).to eq(["8", "4", "6", "4"])
@@ -58,5 +59,33 @@ RSpec.describe Offset do
     offset.calculate_offset(todays_date)
     expect(offset.assign_offsets).to be_a(Array)
     expect(offset.offset_array).to be_a(Array)
+  end
+
+  it 'can create A B C D offsets through input date' do
+    offset = Offset.new
+
+    expect(offset.calculated_offset).to eq([])
+    expect(offset.assign_offsets).to eq([nil, nil, nil, nil])
+
+    empty_date = ""
+    expect(offset.create_offsets(empty_date)).to be_a(Array)
+
+    nil_date = nil
+    expect(offset.create_offsets(nil_date)).to be_a(Array)
+
+    todays_date = Date.today.strftime('%m%d%y')
+    expect(offset.create_offsets(todays_date)).to be_a(Array)
+
+    manual_date = "032592"
+    expect(offset.create_offsets(manual_date)).to eq(["8", "4", "6", "4"])
+
+    short_date = "0325"
+    expect(offset.create_offsets(short_date)).to eq("Invalid entry format, try again as MMDDYY.")
+
+    long_date = "03251992"
+    expect(offset.create_offsets(long_date)).to eq("Invalid entry format, try again as MMDDYY.")
+
+    expect(offset.calculated_offset).to eq(["8", "4", "6", "4"])
+    expect(offset.offset_array).to eq(["8", "4", "6", "4"])
   end
 end
