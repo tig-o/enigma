@@ -23,4 +23,25 @@ class Offset
     d_offset = @calculated_offset[3]
     @offset_array = [a_offset, b_offset, c_offset, d_offset]
   end
+
+  def create_offsets(date)
+    if date == nil || date == ""
+      @current_date = @todays_date
+      calculate_offset(@current_date)
+      assign_offsets
+    elsif date == @todays_date
+      @current_date = @todays_date
+      calculate_offset(@current_date)
+      assign_offsets
+    elsif date.length == 6 # && !date.include?(!0..9)
+      @manual_date = date
+      @current_date = @manual_date
+      calculate_offset(@current_date)
+      assign_offsets
+    elsif date.length < 6 || date.length > 6
+      "Invalid entry format, try again as MMDDYY."
+    else
+      "Invalid entry format, try again as MMDDYY."
+    end
+  end
 end
