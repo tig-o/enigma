@@ -33,4 +33,18 @@ RSpec.describe Key do
     expect(key.current_key.length == 5).to eq(true)
   end
 
+  it 'can assign A B C D keys' do
+    key = Key.new
+
+    manual_key = "02513"
+    key.current_key = manual_key
+    expect(key.assign_keys).to eq(["02", "25", "51", "13"])
+    expect(key.assign_keys.length).to eq(4)
+
+    random_key = key.generate_key
+    key.current_key = random_key
+    expect(key.assign_keys).to be_a(Array)
+    expect(key.assign_keys.length).to eq(4)
+  end
+
 end
