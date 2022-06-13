@@ -46,4 +46,17 @@ RSpec.describe Offset do
     expect(offset.calculated_offset.length).to eq(4)
     expect(offset.calculated_offset).to eq(["8", "4", "6", "4"])
   end
+
+  it 'can assign A B C D offsets' do
+    offset = Offset.new
+    manual_date = "032592"
+    offset.calculate_offset(manual_date)
+    expect(offset.assign_offsets).to eq(["8", "4", "6", "4"])
+    expect(offset.offset_array).to eq(["8", "4", "6", "4"])
+
+    todays_date = Date.today.strftime('%m%d%y')
+    offset.calculate_offset(todays_date)
+    expect(offset.assign_offsets).to be_a(Array)
+    expect(offset.offset_array).to be_a(Array)
+  end
 end
