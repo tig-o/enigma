@@ -17,6 +17,7 @@ RSpec.describe Key do
     key = Key.new
     key.generate_key
     expect(key.random_key).to be_a(String)
+    expect(key.random_key.length == 5).to eq(true)
   end
 
   it 'can return the current key' do
