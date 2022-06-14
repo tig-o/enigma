@@ -1,10 +1,15 @@
 class Enigma
+
+  attr_reader :encrypted_hash
+  
   def initialize
     @key = Key.new
     @offset = Offset.new
+    @encrypted_hash = Hash.new
+
   end
 
-  def encrypt(message, key, date)
+  def encrypt(message, key = @key.generate_key, date = @offset.todays_date)
     @key.current_key = key
     keys = @key.assign_keys
     # keys = @keys.create_keys(key) # need to refactor key class try and implement this
@@ -22,7 +27,7 @@ class Enigma
 
     encrypted_message = encrypted_message.map { |x| x == nil ? " " : x } # replaces nil in array with a space
 
-    encrypted_hash = {
+    @encrypted_hash = {
       encryption: encrypted_message.join,
       key: key,
       date: date
