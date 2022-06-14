@@ -6,7 +6,6 @@ enigma = Enigma.new
 message_text = ARGV[0]
 encrypted_text = ARGV[1]
 
-
 message = File.new(message_text).read
 
 File.open(encrypted_text, "w") do |text_file|
