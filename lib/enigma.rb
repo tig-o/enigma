@@ -44,7 +44,7 @@ class Enigma
     shifts = keys_and_offsets.transpose.map(&:sum)
     alphabet = ("a".."z").to_a << " "
 
-    decrypted_message = message.chars.map.with_index do |letter, index|
+    decrypted_message = message.chars.map.with_index do |letter, index| #2 hours :D
       rotated_alphabet = alphabet.rotate(shifts.rotate(index).first)
       letter_position = rotated_alphabet.index(letter)
       alphabet[letter_position]
