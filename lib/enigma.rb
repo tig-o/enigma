@@ -1,12 +1,13 @@
 class Enigma
 
-  attr_reader :encrypted_hash
-  
+  attr_reader :encrypted_hash,
+              :decrypted_hash
+
   def initialize
     @key = Key.new
     @offset = Offset.new
     @encrypted_hash = Hash.new
-
+    @decrypted_hash = Hash.new
   end
 
   def encrypt(message, key = @key.generate_key, date = @offset.todays_date)
@@ -29,6 +30,30 @@ class Enigma
 
     @encrypted_hash = {
       encryption: encrypted_message.join,
+      key: key,
+      date: date
+    }
+  end
+
+  def decrypt(message, key = @key.generate_key, date = @offset.todays_date)
+    @key.current_key = key
+    keys = @key.assign_keys
+    offsets = @offset.create_offsets(date)
+
+    keys_and_offsets = [keys.map(&:to_i), offsets.map(&:to_i)]
+    shifts = keys_and_offsets.transpose.map(&:sum)
+    alphabet = ("a".."z").to_a << " "
+
+    decrypted_message = message.chars.map.with_index do |letter, index|
+      rotated_alphabet = alphabet.rotate(shifts.rotate(index).first)
+      letter_position = rotated_alphabet.index(letter)
+      alphabet[letter_position]
+    end
+
+    decrypted_message = decrypted_message.map { |x| x == nil ? " " : x }
+
+    @decrypted_hash = {
+      decryption: decrypted_message.join,
       key: key,
       date: date
     }
