@@ -44,4 +44,16 @@ RSpec.describe Enigma do
 
     expect(encrypted[:key]).to eq("02715")
   end
+
+  it 'can decrypt and encrypted message with a key and todays generated date' do
+    enigma = Enigma.new
+    encrypted = enigma.encrypt("hello world", "02715")
+
+    expect(encrypted[:encryption]).to be_a(String)
+    expect(encrypted[:date]).to eq(Date.today.strftime('%m%d%y'))
+    expect(encrypted[:key]).to eq("02715")
+    
+    expected = {:date=>"061422", :decryption=>"hello world", :key=>"02715"}
+    expect(enigma.decrypt(encrypted[:encryption], "02715")).to eq(expected)
+  end
 end
